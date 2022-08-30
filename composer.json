@@ -1,0 +1,22 @@
+{
+	"name": "zngly/wp-graphql-db",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Vlad-Anton Medves",
+			"email": "vlad@zngly.com"
+		}
+	],
+	"scripts": {
+		"migrate": [
+			"ZnglyOrm\\Scripts\\Migrate::init"
+		]
+	},
+	"autoload": {
+		"classmap": [
+			"src/",
+			"scripts/"
+		]
+	},
+	"require": {}
+}
