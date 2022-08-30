@@ -8,15 +8,10 @@
 			"email": "vlad@zngly.com"
 		}
 	],
-	"scripts": {
-		"migrate": [
-			"ZnglyOrm\\Scripts\\Migrate::init"
-		]
-	},
+	"scripts": {},
 	"autoload": {
 		"classmap": [
-			"src/",
-			"scripts/"
+			"src/"
 		]
 	},
 	"require": {}
