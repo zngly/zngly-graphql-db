@@ -1,6 +1,16 @@
+[![Latest Stable Version](http://poser.pugx.org/zngly/zngly-graphql-db/v)](https://packagist.org/packages/zngly/zngly-graphql-db) [![Total Downloads](http://poser.pugx.org/zngly/zngly-graphql-db/downloads)](https://packagist.org/packages/zngly/zngly-graphql-db) [![Latest Unstable Version](http://poser.pugx.org/zngly/zngly-graphql-db/v/unstable)](https://packagist.org/packages/zngly/zngly-graphql-db) [![License](http://poser.pugx.org/zngly/zngly-graphql-db/license)](https://packagist.org/packages/zngly/zngly-graphql-db) [![PHP Version Require](http://poser.pugx.org/zngly/zngly-graphql-db/require/php)](https://packagist.org/packages/zngly/zngly-graphql-db)
+
 # zngly-graphql-db
 
 WPGraphQL custom database manager
+
+### Installation Via Composer
+
+<https://packagist.org/packages/zngly/zngly-graphql-db>
+
+```bash
+composer require zngly/zngly-graphql-db
+```
 
 ### How To Use
 
