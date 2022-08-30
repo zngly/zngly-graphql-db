@@ -1,5 +1,5 @@
 {
-	"name": "zngly/wp-graphql-db",
+	"name": "zngly/zngly-graphql-db",
 	"type": "wordpress-plugin",
 	"version": "0.0.1@alpha",
 	"authors": [
