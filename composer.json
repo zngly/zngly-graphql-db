@@ -1,7 +1,8 @@
 {
 	"name": "zngly/zngly-graphql-db",
-	"type": "wordpress-plugin",
+	"description": "A plugin that allows you to create custom database tables and use them in GraphQL queries & mutations",
 	"version": "0.0.1@alpha",
+	"type": "wordpress-plugin",
 	"authors": [
 		{
 			"name": "Vlad-Anton Medves",
