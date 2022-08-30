@@ -1,6 +1,7 @@
 {
 	"name": "zngly/wp-graphql-db",
 	"type": "wordpress-plugin",
+	"version": "0.0.1@alpha",
 	"authors": [
 		{
 			"name": "Vlad-Anton Medves",
