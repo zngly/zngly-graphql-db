@@ -86,7 +86,57 @@ new ZnglyDb("0.0.1", [
 ]);
 ```
 
-### How To Access Your Models
+### Graphql Queries & Mutations
+
+```graphql
+query notifications {
+	notifications(first: 1100) {
+		nodes {
+			id
+			from
+			message
+			title
+			to
+		}
+	}
+}
+
+mutation create {
+	createNotification(input: { title: "new test", to: "admin", message: "review this pls", from: "user" }) {
+		notification {
+			id
+			title
+			to
+			message
+			from
+		}
+	}
+}
+
+mutation delete {
+	deleteNotification(input: { id: "16" }) {
+		deletedId
+		notification {
+			title
+			id
+		}
+	}
+}
+
+mutation update {
+	updateNotification(input: { id: 16, message: "Can you Review this Please." }) {
+		notification {
+			id
+			from
+			message
+			title
+			to
+		}
+	}
+}
+```
+
+### How To Access Your Models Manually
 
 ```php
 // below is an example of how to get a model from the database manager
