@@ -64,7 +64,7 @@ class UpdateMutation
             /**
              * If there's no existing post, throw an exception
              */
-            if (null === $existing_post) {
+            if (null === $existing_post || false === $existing_post) {
                 // translators: the placeholder is the name of the type of post being updated
                 throw new UserError(sprintf(__('No %1$s could be found to update', 'wp-graphql'), $this->model->graphql_single_name()));
             }
