@@ -80,7 +80,7 @@ class Query extends Base
 	 * @since 1.0.0
 	 * @var   string
 	 */
-	protected $table_schema = '\\BerlinDB\\Database\\Schema';
+	protected $table_schema = '\\Zngly\\Graphql\\Db\\Database\\Schema';
 
 	/** Item ******************************************************************/
 
@@ -116,7 +116,7 @@ class Query extends Base
 	 * @since 1.0.0
 	 * @var   mixed
 	 */
-	protected $item_shape = '\\BerlinDB\\Database\\Row';
+	protected $item_shape = '\\Zngly\\Graphql\\Db\\Database\\Row';
 
 	/** Cache *****************************************************************/
 

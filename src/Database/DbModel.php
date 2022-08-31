@@ -17,6 +17,12 @@ class DbModel
         $this->db = new $query_class_name();
     }
 
+    public function new_query(array $args = []): Query
+    {
+        $query_class_name = Utils::runtime_class_name($this->table_model->graphql_single_name() . 'Query');
+        return new $query_class_name($args);
+    }
+
     /**
      * @see WP_Query::parse_query() for all available arguments.
      */
@@ -53,24 +59,6 @@ class DbModel
      */
     private function args_check(array $args): void
     {
-        $this->check_field_names($args);
-    }
-
-    /**
-     * check if the fields exist in the model
-     * 
-     * @param string $name
-     * @return true|Exception
-     */
-    private function check_field_names(array $args)
-    {
-        $fields = $this->table_model->graphql_fields();
-
-        $field_names = [];
-        foreach ($fields as $field) $field_names[] = $field->name;
-
-        foreach ($args as $name => $value)
-            if (!in_array($name, $field_names))
-                throw new \Exception("Field '$name' does not exist in the model " . $this->table_model->table_single_name() . " " . json_encode($field_names));
+        // run any check on the args
     }
 }
