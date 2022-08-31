@@ -6,7 +6,7 @@
  * Description:       A plugin that allows you to create custom database tables and use them in GraphQL queries & mutations
  * Author:            Vlad-Anton Medves
  * Text Domain:       zngly-graphql-db
- * Version:           0.0.0@alpha
+ * Version:           0.0.1@alpha
  * Requires PHP:      8.0
  *
  * @package           zngly-graphql-db
