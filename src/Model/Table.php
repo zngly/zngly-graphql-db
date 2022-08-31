@@ -72,7 +72,7 @@ abstract class Table
                 $type = ["non_null" => $type];
             }
 
-            $input_fields[$field->name] = [
+            $input_fields[$field->get_graphql_name()] = [
                 'type' => $type,
                 'description' => $field->description,
             ];
