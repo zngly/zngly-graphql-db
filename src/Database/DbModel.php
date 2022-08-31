@@ -57,8 +57,24 @@ class DbModel
     /**
      * check if all the args are valid
      */
-    private function args_check(array $args): void
+    private function args_check(array &$args): void
     {
         // run any check on the args
+        $this->graphql_to_db_args($args);
+    }
+
+    // if any of the graphql args found in the model fields
+    private function graphql_to_db_args(array &$args)
+    {
+
+        $fields = $this->table_model->graphql_fields();
+        foreach ($fields as $field) {
+            $gql_name = $field->get_graphql_name();
+            if (isset($args[$gql_name]) && $gql_name !== $field->name) {
+                $temp = $args[$gql_name];
+                unset($args[$gql_name]);
+                $args[$field->name] = $temp;
+            }
+        }
     }
 }

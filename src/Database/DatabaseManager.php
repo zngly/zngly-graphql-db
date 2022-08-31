@@ -221,6 +221,7 @@ class DatabaseManager
         }");
     }
 
+    // @todo
     private function row_gen(Table $table)
     {
         $class_name = Utils::runtime_class_name($table->graphql_single_name() . 'Row');
@@ -249,7 +250,7 @@ class DatabaseManager
                 // \$this->isbn           = (string) \$this->isbn;
                 \$this->title          = (string) \$this->title;
                 // \$this->author         = (string) \$this->author;
-                // \$this->date_created   = false === \$this->date ? 0 : strtotime( \$this->date_created );
+                \$this->created_at   = false === \$this->date ? 0 : strtotime( \$this->created_at );
                 // \$this->date_published = false === \$this->date ? 0 : strtotime( \$this->date_published );
             }
         
