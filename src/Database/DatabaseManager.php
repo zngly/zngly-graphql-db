@@ -3,7 +3,6 @@
 
 namespace Zngly\Graphql\Db\Database;
 
-use Zngly\Graphql\Db\Database\DatabaseManager as DatabaseDatabaseManager;
 use Zngly\Graphql\Db\Model\Table;
 use Zngly\Graphql\Db\Utils;
 
@@ -230,28 +229,31 @@ class DatabaseManager
         if (class_exists($class_name))
             return;
 
-        $fields = $table->fields();
-        $columns = [];
+        $fields = $table->graphql_fields();
+        $items = [];
         foreach ($fields as $field) {
-            // $columns[$field->name] = [
-            //     'name' => $field->name,
-            //     'type' => $field->get_graphql_type(),
-            //     'description' => $field->description,
-            // ];
+            // if the field name is the same as the field graphql name, use the field name
+            // otherwise add the graphql name as well.
+            $name = $field->name;
+            $gql_name = $field->get_graphql_name();
+
+            $type_cast = strtolower($field->get_graphql_type());
+            if ($type_cast === 'id') $type_cast = 'int';
+
+            if ($name !== $gql_name)
+                $items[] = "\$this->{$gql_name} = ({$type_cast}) \$this->{$name};";
+
+            $items[] = "\$this->{$name} = ({$type_cast}) \$this->{$name};";
         }
+
+        $items = implode("\n", $items);
 
         eval("class $class_name extends \Zngly\Graphql\Db\Database\Row {
 
             public function __construct( \$item ) {
                 parent::__construct( \$item );
-        
-                // This is optional, but recommended. Set the type of each column, and prepare.
-                \$this->id             = (int) \$this->id;
-                // \$this->isbn           = (string) \$this->isbn;
-                \$this->title          = (string) \$this->title;
-                // \$this->author         = (string) \$this->author;
-                \$this->created_at   = false === \$this->date ? 0 : strtotime( \$this->created_at );
-                // \$this->date_published = false === \$this->date ? 0 : strtotime( \$this->date_published );
+
+                " . $items . "
             }
         
             /**
@@ -262,13 +264,13 @@ class DatabaseManager
              * @return string HTML output to display this record's data.
              */
             public function display() {
-                \$result = '<h3>' . \$this->title . '</h3>';
-                \$result .= '<dl>';
-                \$result .= '<dt>Title: </dt><dd>' . \$this->title . '</dd>';
+                // \$result = '<h3>' . \$this->title . '</h3>';
+                // \$result .= '<dl>';
+                // \$result .= '<dt>Title: </dt><dd>' . \$this->title . '</dd>';
                 // \$result .= '<dt>ISBN: </dt><dd>' . \$this->isbn . '</dd>';
                 // \$result .= '<dt>Published: </dt><dd>' . date( 'M d, Y', \$this->date_published ) . '</dd>';
-                \$result .= '</dl>';
-                return \$result;
+                // \$result .= '</dl>';
+                // return \$result;
             }
         
         }");

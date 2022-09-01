@@ -3,7 +3,7 @@
 
 namespace Zngly\Graphql\Db\Model;
 
-use Wpgraphql\Utils\Utils as WpgraphqlUtils;
+use WPGraphQL\Utils\Utils as WpUtils;
 
 class Field
 {
@@ -170,7 +170,7 @@ class Field
         if (isset($this->graphql_name)) $name =  $this->graphql_name;
         else $name = $this->name;
 
-        return WpgraphqlUtils::format_field_name($name);
+        return WpUtils::format_field_name($name);
     }
 
     public function get_graphql_type(): string

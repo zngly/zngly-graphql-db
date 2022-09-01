@@ -2,6 +2,7 @@
 
 namespace Zngly\Graphql\Db\Graphql\Data;
 
+use Zngly\Graphql\Db\Database\DatabaseManager;
 use Zngly\Graphql\Db\Model\Table;
 use Zngly\Graphql\Db\Utils;
 
@@ -35,43 +36,35 @@ class GenericLoader
 
             public function loadKeys(array $keys)
             {
-                if (empty($keys) || !is_array($keys)) {
-                    return [];
+                if (empty($keys)) {
+                    return $keys;
                 }
 
-                $fields = [];
-                foreach ($this->model->graphql_fields() as $field)
-                    $fields[] = $field->name;
+                $db_instance = DatabaseManager::get_instance();
+                $db = $db_instance->get($this->model->table_single_name());
+                $row_class_name = Utils::runtime_class_name($this->model->graphql_single_name() . 'Row');
 
-                $table_name = $this->model::table_plural_name();
+                $loaded_posts = [];
 
-                global $wpdb;
-
-                // @todo: properly load the keys
-                $results = $wpdb->get_results(
-                    $wpdb->prepare(
-                        "SELECT * FROM `" . $wpdb->prefix . $table_name . "`"
-                    )
-                );
-
-                $results_by_id = [];
-                foreach ($results as $result) {
-                    $data = [];
-                    foreach ($fields as $field) {
-                        $data[$field] = $result->$field;
-                    }
-
-                    $results_by_id[(int) $result->id] = $data;
-                }
-
-                $data_array = [];
                 foreach ($keys as $key) {
-                    if (isset($results_by_id[$key])) {
-                        $data_array[$key] = $results_by_id[$key];
+                    /**
+                     * The query above has added our objects to the cache
+                     * so now we can pluck them from the cache to return here
+                     * and if they don't exist we can throw an error, otherwise
+                     * we can proceed to resolve the object via the Model layer.
+                     */
+                    $post_object = $db->get((int) $key);
+
+                    if (empty($post_object) || $post_object === false || !($post_object instanceof $row_class_name)) {
+                        $loaded_posts[$key] = null;
+                    } else {
+                        /**
+                         * Once dependencies are loaded, return the Post Object
+                         */
+                        $loaded_posts[$key] = $post_object;
                     }
                 }
-
-                return $data_array;
+                return $loaded_posts;
             }
         };
 
