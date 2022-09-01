@@ -175,25 +175,6 @@ class DatabaseManager
 
         eval("class $class_name extends \Zngly\Graphql\Db\Database\Schema {
             public \$columns = [$columns_str];
-            
-            // [
-            //     'id'           => [
-            //         'name'     => 'id',
-            //         'type'     => 'bigint',
-            //         'length'   => '20',
-            //         'unsigned' => true,
-            //         'extra'    => 'auto_increment',
-            //         'primary'  => true,
-            //         'sortable' => true,
-            //     ],
-            //     'title'         => [
-            //         'name'       => 'title',
-            //         'type'       => 'mediumtext',
-            //         'unsigned'   => true,
-            //         'searchable' => true,
-            //         'sortable'   => false,
-            //     ],
-            // ];
         }");
     }
 
@@ -220,7 +201,6 @@ class DatabaseManager
         }");
     }
 
-    // @todo
     private function row_gen(Table $table)
     {
         $class_name = Utils::runtime_class_name($table->graphql_single_name() . 'Row');
@@ -253,7 +233,7 @@ class DatabaseManager
             public function __construct( \$item ) {
                 parent::__construct( \$item );
 
-                " . $items . "
+                {$items}
             }
         
             /**
